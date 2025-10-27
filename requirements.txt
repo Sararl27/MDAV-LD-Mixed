@@ -1,0 +1,22 @@
+# Pinned exact package versions exported from the active `lmdav-ai` environment
+# Timestamp: 2025-10-24
+# Warning: these are exact pins from that environment. Overwriting with these
+# will attempt to reproduce that environment exactly.
+numpy==2.1.3
+pandas==2.3.0
+tqdm==4.67.1
+scipy==1.15.3
+scikit-learn==1.7.0
+tensorflow==2.20.0
+keras==3.10.0
+matplotlib==3.10.3
+seaborn==0.13.2
+plotly==6.1.2
+kaleido==1.0.0
+ucimlrepo==0.0.7
+category_encoders==2.8.1
+joblib==1.5.1
+sympy==1.14.0
+
+# If you prefer a looser requirements file, keep a separate `requirements.txt` and
+# use `requirements-pinned.txt` for exact reproduction.
