@@ -174,28 +174,11 @@ def run_model_evaluation(
         ncp = None
         disclosure_metrics = {}
         rl_metrics = {}
-    
-    # Performance Metrics - Enhanced with runtime analysis
-    # performance_metrics = calculate_performance_metrics(
-    #     time_list, 
-    #     getattr(instance, 'aditional_info', None)
-    # )
-    
-    # Throughput Metrics - Data processing efficiency
-    # if X is not None and time_list:
-    #     throughput_metrics = calculate_throughput_metrics(
-    #         data_size=len(X),
-    #         execution_times=time_list,
-    #         size_unit="records"
-    #     )
-    # else:
-    #     throughput_metrics = {}
-    
+        
     pbar.update(1)  # Final update
     del X
 
-    # Compile comprehensive results
-    
+    # Compile comprehensive results    
     sizes_cluster = [len(c) for c in clusters] if clusters else []
     result = {
         "Model": model,
@@ -220,4 +203,5 @@ def run_model_evaluation(
     pbar.close()
 
     return result, clusters, instance
+
 
