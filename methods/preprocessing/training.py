@@ -97,9 +97,7 @@ def train_encoder(dataset, raw_input_dim, cfg: TrainConfig = TrainConfig(), targ
             raise ValueError(f"Unknown auto_reduction strategy '{cfg.auto_reduction}'. Use 'sqrt' or 'cube'.")
         
         if cfg.verbose > 0:
-            logger.info(
-                f"Setting latent_dim to {cfg.latent_dim} (strategy={cfg.auto_reduction}, auto={cfg.latent_dim}, preprocessed_dim={raw_input_dim})"
-            )
+            logger.info(f"Setting latent_dim to {cfg.latent_dim} (strategy={cfg.auto_reduction}, auto={cfg.latent_dim}, preprocessed_dim={raw_input_dim})")
     elif cfg.latent_dim > raw_input_dim:
         raise ValueError(f"latent_dim ({cfg.latent_dim}) cannot exceed raw_input_dim ({raw_input_dim}).")
     # Additional validation

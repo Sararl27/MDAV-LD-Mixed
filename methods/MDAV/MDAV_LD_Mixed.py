@@ -763,20 +763,24 @@ class MDAV_LD_Mixed(IterativeMDAV):
             np.ndarray: Encoded data with target_dtype
         """
         # Check for multi-GPU availability
+        from  copy import deepcopy as _deepcopy
+        encoder_config = _deepcopy(self.encoder_config)
+
         strategy = (tf.distribute.MirroredStrategy() if len(tf.config.experimental.list_physical_devices('GPU')) > 1 
                     else None)
+                    
 
         if strategy:
             with strategy.scope():
-                encode_fn = self._get_model(X, model_path, self.encoder_config, accept_model_over_threshold=accept_model_over_threshold)
+                encode_fn = self._get_model(X, model_path, encoder_config, accept_model_over_threshold=accept_model_over_threshold)
         else:
-            encode_fn = self._get_model(X, model_path, self.encoder_config, accept_model_over_threshold=accept_model_over_threshold)
+            encode_fn = self._get_model(X, model_path, encoder_config, accept_model_over_threshold=accept_model_over_threshold)
 
         if self.enable_time_monitoring:
             start = time.perf_counter()
 
         ds = tf.data.Dataset.from_tensor_slices(X)
-        ds = ds.batch(self.encoder_config.inference_batch_size, drop_remainder=False).prefetch(tf.data.AUTOTUNE)
+        ds = ds.batch(encoder_config.inference_batch_size, drop_remainder=False).prefetch(tf.data.AUTOTUNE)
 
         if strategy:
             ds = strategy.experimental_distribute_dataset(ds)
