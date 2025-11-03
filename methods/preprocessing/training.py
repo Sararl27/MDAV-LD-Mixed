@@ -88,25 +88,23 @@ def train_encoder(dataset, raw_input_dim, cfg: TrainConfig = TrainConfig(), targ
         dataset = np.asarray(dataset, dtype=target_dtype)
 
     if cfg.latent_dim is None:
-        if dataset.shape[1] == 0:
-            raise ValueError(f"Dataset has no features (shape: {dataset.shape}). Cannot determine latent_dim.")
         # Compute automatic latent dimension based on selected strategy
         if cfg.auto_reduction.lower() == "sqrt":
-            auto_latent = int(np.ceil(np.sqrt(raw_input_dim)))
+            cfg.latent_dim = int(np.ceil(np.sqrt(raw_input_dim)))
         elif cfg.auto_reduction.lower() == "cube":
-            auto_latent = int(np.ceil(np.cbrt(raw_input_dim)))
+            cfg.latent_dim = int(np.ceil(np.cbrt(raw_input_dim)))
         else:
             raise ValueError(f"Unknown auto_reduction strategy '{cfg.auto_reduction}'. Use 'sqrt' or 'cube'.")
         
         if cfg.verbose > 0:
             logger.info(
-                f"Setting latent_dim to {cfg.latent_dim} (strategy={cfg.auto_reduction}, auto={auto_latent}, cap={raw_input_dim}, preprocessed_dim={dataset.shape[1]})"
+                f"Setting latent_dim to {cfg.latent_dim} (strategy={cfg.auto_reduction}, auto={cfg.latent_dim}, preprocessed_dim={raw_input_dim})"
             )
     elif cfg.latent_dim > raw_input_dim:
-        raise ValueError(f"latent_dim ({cfg.latent_dim}) cannot exceed raw_input_dim ({raw_input_dim}). Dataset shape: {dataset.shape}")
+        raise ValueError(f"latent_dim ({cfg.latent_dim}) cannot exceed raw_input_dim ({raw_input_dim}).")
     # Additional validation
     if cfg.latent_dim <= 0:
-        raise ValueError(f"latent_dim must be positive, got {cfg.latent_dim}. Dataset shape: {dataset.shape}")
+        raise ValueError(f"latent_dim must be positive, got {cfg.latent_dim}.")
 
     if cfg.verbose > 0:
         logger.info(f"Training autoencoder with config: {cfg}")
