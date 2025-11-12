@@ -22,7 +22,7 @@ pip install -r requirements.txt
   - Prepare datasets (via `tools/utils.get_data`)
   - Configure algorithm variants and parameters
   - Run the evaluation using `run_model_evaluation` (from `model_evaluation.py`)
-  - Generate and save figures under `Images/`
+  - Generate and save figures under `output/MDAV/<experiment_name>/images/`
 
 ---
 
@@ -34,6 +34,6 @@ pip install -r requirements.txt
 | `methods/MDAV/MDAV_LD_Mixed.py` | Core implementation of the MDAV-LD-Mixed algorithm |
 | `model_evaluation.py` | Experimental pipeline providing the `run_model_evaluation` function |
 | `tools/` | Auxiliary utilities for data preprocessing and evaluation |
-| `Images/` | Output directory for generated plots and figures |
+| `output/` | Output directory for experiments |
 
 ---
